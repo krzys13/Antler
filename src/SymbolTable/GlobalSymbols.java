@@ -34,6 +34,19 @@ public class GlobalSymbols<T> {
 	}
 
 	/**
+	 * makes new variable in the symbol table
+	 * @param name
+	 * @param value
+	 * @throws RuntimeException if the variable already exists
+	 */
+	public void newSymbol(String name, T value) throws RuntimeException{
+		if (! hasSymbol(name))
+			memory.put(name, value);
+		else
+			throw new RuntimeException("Variable " + name +" exists!");
+	}
+
+	/**
 	 * sets value to the variable <b>existing</b> in the symbol table
 	 * @param name
 	 * @param value
