@@ -78,6 +78,13 @@ public class CalculateVisitor extends firstBaseVisitor<Integer> {
         return result;
     }
 
+    @Override
+    public Integer visitBlock_real(firstParser.Block_realContext ctx) {
+        LocalSymbols.enterScope();
+        super.visitChildren(ctx);
+        LocalSymbols.leaveScope();
+        return null;
+    }
 
     // Tutaj są poszczególne metody odwiedzania podzasad reguły expr
     @Override
@@ -120,7 +127,7 @@ public class CalculateVisitor extends firstBaseVisitor<Integer> {
         Integer value = visit(ctx.expr());
         System.out.println("LOG:Dodaj do hash mapy " + name + "=" + value);
 
-        if (!LocalSymbols.hasSymbol(name)) {
+        if (!LocalSymbols.hasSymbol(name) && LocalSymbols.hasSymbolDepth(name) == null) {
             LocalSymbols.newSymbol(name);
             LocalSymbols.setSymbol(name,value);
         } else {
