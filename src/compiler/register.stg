@@ -20,6 +20,29 @@ dodaj(p1,p2) ::= <<
 ADD A,B
 >>
 
+odejmij(p1,p2) ::= <<
+<twoop(p1,p2)>
+SUB A, B
+>>
+
+pomnoz(p1,p2) ::= <<
+<twoop(p1,p2)>
+MUL A, B
+>>
+
+podziel(p1,p2) ::= <<
+<twoop(p1,p2)>
+DIV A, B
+>>
+
+assign(addres, value) ::= <<
+<value>
+MOV [<addres>],A
+>>
+
+id(addres) ::= <<
+MOV A,[<addres>]
+>>
 dek(n) ::= <<
 DD <n>
 >>

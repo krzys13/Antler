@@ -1,5 +1,6 @@
 package compiler;
 
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
@@ -33,15 +34,48 @@ public class EmitVisitor extends firstBaseVisitor<ST> {
     }
 
     @Override
-    public ST visitInt_tok(firstParser.Int_tokContext ctx) {
-        ST st = stGroup.getInstanceOf("int");
-        st.add("i",ctx.INT().getText());
+    public ST visitAssign(firstParser.AssignContext ctx) {
+        ST st = stGroup.getInstanceOf("assign");
+        st.add("addres", ctx.ID().getText()).add( "value", visit(ctx.expr()));
         return st;
     }
 
     @Override
+    public ST visitInt_tok(firstParser.Int_tokContext ctx) {
+        ST st = stGroup.getInstanceOf("int");
+        st.add("i",ctx.INT());
+        return st;
+    }
+
+    @Override
+    public ST visitId_tok(firstParser.Id_tokContext ctx) {
+        ST st = stGroup.getInstanceOf("id");
+        st.add("addres", ctx.ID());
+        return st;
+    }
+
+
+
+    @Override
     public ST visitBinOp(firstParser.BinOpContext ctx) {
-        ST st = stGroup.getInstanceOf("dodaj");
-        return st.add("p1",visit(ctx.l)).add("p2",visit(ctx.r));
+        ST st = null;
+        switch (ctx.op.getType()) {
+            case firstParser.ADD:
+                st = stGroup.getInstanceOf("dodaj");
+                break;
+            case firstParser.SUB:
+                st = stGroup.getInstanceOf("odejmij");
+                break;
+            case firstParser.MUL:
+                st = stGroup.getInstanceOf("pomnoz");
+                break;
+            case firstParser.DIV:
+                st = stGroup.getInstanceOf("podziel");
+                break;
+        default:
+            throw new IllegalArgumentException("Nieobslugiwany operator: " + ctx.op.getText());
+        }
+        return st.add("p1", visit(ctx.l)).add("p2", visit(ctx.r));
+
     }
 }

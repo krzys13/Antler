@@ -1,0 +1,12 @@
+        MOV A,#3
+        PUSH A
+        MOV A,#2
+        POP B
+        ADD A,B
+        MOV [a],A
+        MOV A,#10
+        PUSH A
+        MOV A,[a]
+        POP B
+        ADD A,B
+    Terminal node:<EOF>

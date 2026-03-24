@@ -18,6 +18,33 @@ dodaj(p1,p2) ::= <<
 ADD
 >>
 
+
+odejmij(p1,p2) ::= <<
+<twoop(p1,p2)>
+SUB
+>>
+
+
+pomnoz(p1,p2) ::= <<
+<twoop(p1,p2)>
+MUL
+>>
+
+podziel(p1,p2) ::= <<
+<twoop(p1,p2)>
+DIV
+>>
+
+
 dek(n) ::= <<
 DD <n>
+>>
+
+assign(addres, value) ::= <<
+<value>
+POP [<addres>]
+>>
+
+id(addres) ::= <<
+PUSH[<addres>]
 >>

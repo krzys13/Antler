@@ -31,8 +31,8 @@ public class StartCompiler {
         ParseTree tree = par.prog();
 
         //st group
-//        STGroup.trackCreationEvents = true;
-        STGroup group = new STGroupFile("src/compiler/pierwszy.stg");
+        //STGroup.trackCreationEvents = true;
+        STGroup group = new STGroupFile("src/compiler/register.stg");
 
         EmitVisitor em = new EmitVisitor(group);
         ST res = em.visit(tree);
@@ -44,6 +44,6 @@ public class StartCompiler {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-//        res.inspect();
+        res.inspect();
     }
 }
